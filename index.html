@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>緊固件鎖附評估 </title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: #f5f5f4;
+      color: #2c2c2a;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 500;
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #5f5e5a;
+      margin-bottom: 24px;
+    }
+
+    .section {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .subsection-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #185FA5;
+      margin: 14px 0 8px;
+      padding-left: 8px;
+      border-left: 3px solid #185FA5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field label {
+      font-size: 12px;
+      color: #5f5e5a;
+      font-weight: 500;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      height: 34px;
+      padding: 0 10px;
+      border: 0.5px solid rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      font-size: 13px;
+      background: #fff;
+      color: #2c2c2a;
+      font-family: inherit;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #185FA5;
+      box-shadow: 0 0 0 2px rgba(24, 95, 165, 0.15);
+    }
+
+    .field-hint {
+      font-size: 11px;
+      color: #888780;
+      margin-top: 2px;
+    }
+
+    .stack-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .stack-table th {
+      text-align: left;
+      font-weight: 500;
+      color: #5f5e5a;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .stack-table td {
+      padding: 4px 6px;
+      vertical-align: middle;
+    }
+
+    .stack-table input,
+    .stack-table select {
+      width: 100%;
+      height: 30px;
+      padding: 0 8px;
+      border: 0.5px solid rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      font-size: 12px;
+      background: #fff;
+      color: #2c2c2a;
+      font-family: inherit;
+    }
+
+    .stack-table input:disabled {
+      background: #f1efe8;
+      color: #b4b2a9;
+    }
+
+    .btn {
+      background: transparent;
+      border: 0.5px solid rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #2c2c2a;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: #f1efe8;
+    }
+
+    .btn-primary {
+      background: #185FA5;
+      color: #fff;
+      border-color: #185FA5;
+      padding: 10px 28px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      background: #0C447C;
+    }
+
+    .btn-icon {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border-radius: 6px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-icon:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-danger {
+      color: #A32D2D;
+      border-color: rgba(163, 45, 45, 0.3);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .compute-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 0;
+    }
+
+    .row-fastener td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .row-nut td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .verdict {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .verdict-pass {
+      background: #EAF3DE;
+      color: #173404;
+    }
+
+    .verdict-warn {
+      background: #FAEEDA;
+      color: #412402;
+    }
+
+    .verdict-fail {
+      background: #FCEBEB;
+      color: #501313;
+    }
+
+    .verdict-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .verdict-pass .verdict-icon {
+      background: #97C459;
+      color: #173404;
+    }
+
+    .verdict-warn .verdict-icon {
+      background: #EF9F27;
+      color: #412402;
+    }
+
+    .verdict-fail .verdict-icon {
+      background: #E24B4A;
+      color: #fff;
+    }
+
+    .verdict-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .verdict-text small {
+      display: block;
+      font-weight: 400;
+      font-size: 12px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      table-layout: fixed;
+    }
+
+    .check-table th:nth-child(1) {
+      width: auto;
+    }
+
+    .check-table th:nth-child(2) {
+      width: 32%;
+    }
+
+    .check-table th:nth-child(3) {
+      width: 26%;
+    }
+
+    .check-table th:nth-child(4) {
+      width: 56px;
+      text-align: center;
+    }
+
+    .check-table td:nth-child(4) {
+      text-align: center;
+    }
+
+    .check-table th {
+      text-align: left;
+      font-weight: 500;
+      color: #5f5e5a;
+      padding: 8px 10px;
+      font-size: 12px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+      background: #f9f8f5;
+    }
+
+    .check-table td {
+      padding: 8px 10px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .check-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .badge-pass {
+      background: #EAF3DE;
+      color: #173404;
+    }
+
+    .badge-warn {
+      background: #FAEEDA;
+      color: #412402;
+    }
+
+    .badge-fail {
+      background: #FCEBEB;
+      color: #501313;
+    }
+
+    .group-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #185FA5;
+      margin: 16px 0 8px;
+      padding-left: 8px;
+      border-left: 3px solid #185FA5;
+    }
+
+    .group-title:first-child {
+      margin-top: 0;
+    }
+
+    .recommend-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .recommend-list li {
+      padding: 8px 12px;
+      background: #f9f8f5;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      border-left: 3px solid #BA7517;
+    }
+
+    .data-source {
+      font-size: 11px;
+      color: #888780;
+      background: #f9f8f5;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+      line-height: 1.7;
+    }
+
+    .data-source strong {
+      color: #5f5e5a;
+      font-weight: 500;
+    }
+
+    .unified-table tbody+tbody tr:first-child td {
+      border-top: none;
+    }
+
+    .section-header-row td {
+      font-size: 12px;
+      font-weight: 500;
+      color: #5f5e5a;
+      padding: 10px 8px 4px;
+      border-top: 0.5px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .add-row td {
+      padding: 8px 6px;
+    }
+
+    .drag-handle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      cursor: grab;
+      color: #c8c6bf;
+      font-size: 15px;
+      user-select: none;
+      transition: color 0.15s;
+      vertical-align: middle;
+    }
+
+    .drag-handle:hover {
+      color: #5f5e5a;
+    }
+
+    .drag-handle:active {
+      cursor: grabbing;
+    }
+
+    tr.dragging {
+      opacity: 0.35;
+    }
+
+    tr.drag-over-top td {
+      box-shadow: inset 0 2px 0 #185FA5;
+    }
+
+    tr.drag-over-bottom td {
+      box-shadow: inset 0 -2px 0 #185FA5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .num-display {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>緊固件鎖附評估</h1>
+    <p class="subtitle">針對緊固件強度、外力對抗評估</p>
+
+    <div class="section">
+      <h2 class="section-title">緊固件資訊</h2>
+      <p class="field-hint" style="margin: -8px 0 12px;">依堆疊由上而下，逐列新增；類型可選螺絲、墊片、工件、螺帽</p>
+
+      <table class="stack-table unified-table">
+        <colgroup>
+          <col style="width: 28px;">
+          <col style="width: 110px;">
+          <col style="width: 180px;">
+          <col style="width: 110px;">
+          <col style="width: 110px;">
+          <col style="width: 150px;">
+          <col style="width: 90px;">
+          <col style="width: 36px;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th>類型</th>
+            <th>名稱／材質</th>
+            <th>外徑 OD（mm）</th>
+            <th>內徑 ID（mm）</th>
+            <th>σy／Sp（N/mm²）</th>
+            <th>K</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="stackBody"></tbody>
+      </table>
+
+      <div class="actions" style="margin-top: 10px;">
+        <button class="btn" onclick="addStackRow('bolt')">＋新增</button>
+      </div>
+
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 0.5px solid rgba(0,0,0,0.12);">
+        <div class="grid grid-2" style="margin-bottom: 16px;">
+          <div class="field">
+            <label>鎖附扭力（N·m）</label>
+            <input type="number" id="torque" value="200" min="1" step="1">
+            <span class="field-hint">用於計算螺絲軸力</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-top: 16px; border-top: 0.5px solid rgba(0,0,0,0.12);">
+        <label
+          style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; font-weight: 500; color: #2c2c2a;">
+          <input type="checkbox" id="includeForce" onchange="toggleForceBlocks()"
+            style="width: 16px; height: 16px; cursor: pointer;">
+          納入外力分析（抗滑、抗傾覆、螺絲動態拉力）
+        </label>
+        <p class="field-hint" style="margin-top: 4px; padding-left: 26px;">若僅需分析螺絲螺帽強度與接觸面壓，可不勾選</p>
+      </div>
+    </div>
+
+    <div id="forceBlocks" class="hidden">
+      <div class="section">
+        <h2 class="section-title">產品基本資訊</h2>
+        <div class="grid grid-2">
+          <div class="field" style="grid-column: 1 / -1;">
+            <label>分析目標</label>
+            <input type="text" id="analysisTarget" placeholder="例：儲能櫃底座固定螺絲、機台右側鎖附點…">
+          </div>
+          <div class="field">
+            <label>產品總重量（kg）</label>
+            <input type="number" id="weight" value="6000" min="1" step="1">
+          </div>
+          <div class="field">
+            <label>鎖點數量（顆）</label>
+            <input type="number" id="boltCount" value="4" min="1" step="1">
+          </div>
+          <div class="field">
+            <label>重心至鎖點高度 H（m）</label>
+            <input type="number" id="height" value="" min="0.01" step="0.1">
+          </div>
+          <div class="field">
+            <label>短邊螺絲間距的一半 B/2（m）</label>
+            <input type="number" id="boltSpan" value="" min="0.01" step="0.05">
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">入力資訊</h2>
+        <div class="grid grid-2">
+          <div class="field">
+            <label>側向加速度（g）</label>
+            <input type="number" id="ahValue" value="0.8" min="0" step="0.05">
+            <span class="field-hint">垂直於螺絲軸向，影響抗滑與抗傾覆</span>
+          </div>
+          <div class="field">
+            <label>軸向加速度（g）</label>
+            <input type="number" id="avValue" value="0.54" min="0" step="0.05">
+            <span class="field-hint">沿螺軸向，影響螺絲承受力</span>
+          </div>
+          <div class="field">
+            <label>座面摩擦係數 μ</label>
+            <input type="number" id="friction" value="0.3" min="0" step="0.05">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compute-bar">
+      <button class="btn-primary btn" onclick="runAnalysis()">分析</button>
+      <button class="btn" onclick="resetForm()">重設</button>
+    </div>
+
+    <div id="resultArea" class="hidden">
+      <div class="result-card">
+        <h2 class="section-title">判定</h2>
+        <div id="overallVerdict"></div>
+      </div>
+
+      <div class="result-card">
+        <h2 class="section-title">詳細計算項目</h2>
+        <div class="group-title">基礎參數</div>
+        <table class="check-table" id="paramTable"></table>
+        <div class="group-title">緊固件強度</div>
+        <table class="check-table" id="systemTable"></table>
+        <div class="group-title">接觸面降伏</div>
+        <table class="check-table" id="contactTable"></table>
+        <div class="group-title" id="forceGroup">外力對抗</div>
+        <div id="forceTableDiv">
+          <table class="check-table" id="forceTable"></table>
+        </div>
+      </div>
+
+      <div class="result-card" id="recommendCard">
+        <h2 class="section-title">改善建議</h2>
+        <ul class="recommend-list" id="recommendList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BOLT_DATA = {
+      'M2': { d: 2, P: 0.4, As: 2.07 },
+      'M3': { d: 3, P: 0.5, As: 5.03 },
+      'M4': { d: 4, P: 0.7, As: 8.78 },
+      'M5': { d: 5, P: 0.8, As: 14.2 },
+      'M6': { d: 6, P: 1.0, As: 20.1 },
+      'M8': { d: 8, P: 1.25, As: 36.6 },
+      'M10': { d: 10, P: 1.5, As: 58.0 },
+      'M12': { d: 12, P: 1.75, As: 84.3 },
+      'M14': { d: 14, P: 2.0, As: 115 },
+      'M16': { d: 16, P: 2.0, As: 157 },
+      'M18': { d: 18, P: 2.5, As: 192 },
+      'M20': { d: 20, P: 2.5, As: 245 },
+      'M24': { d: 24, P: 3.0, As: 353 }
+    };
+
+    let stackIdCounter = 0;
+
+    function addStackRow(type, preset) {
+      stackIdCounter++;
+      const tbody = document.getElementById('stackBody');
+      const tr = document.createElement('tr');
+      tr.dataset.id = stackIdCounter;
+      tr.dataset.type = type;
+      tr.draggable = true;
+      const p = preset || {};
+
+      const handleTd = `<td style="padding:0 4px;text-align:center;"><span class="drag-handle" title="拖曳排序">✛</span></td>`;
+
+      const typeSelect = `
+    <select class="stack-type" onchange="onStackTypeChange(this)">
+      <option value="bolt"   ${type === 'bolt' ? 'selected' : ''}>螺絲</option>
+      <option value="washer" ${type === 'washer' ? 'selected' : ''}>墊片</option>
+      <option value="part"   ${type === 'part' ? 'selected' : ''}>工件</option>
+      <option value="nut"    ${type === 'nut' ? 'selected' : ''}>螺帽</option>
+    </select>`;
+
+      // 各類型欄位初始值
+      if (type === 'bolt') {
+        const sizeOpts = ['M2', 'M3', 'M4', 'M5', 'M6', 'M8', 'M10', 'M12', 'M14', 'M16', 'M18', 'M20', 'M24']
+          .map(m => `<option value="${m}" ${(p.size || '') === m ? 'selected' : ''}>${m}</option>`).join('');
+        tr.innerHTML = `
+      ${handleTd}
+      <td>${typeSelect}</td>
+      <td><select class="stack-bolt-size">${sizeOpts}</select></td>
+      <td><input type="number" class="stack-od" value="${p.od || ''}" min="1" step="0.5" placeholder="無墊片時填"></td>
+      <td><input type="number" class="stack-id" value="${p.id || ''}" min="1" step="0.5" placeholder="孔徑"></td>
+      <td><input type="number" class="stack-σy" value="${p.σy || ''}" min="0" step="10" placeholder="σy"></td>
+      <td><input type="number" class="stack-k"  value="${p.k || ''}" min="0.01" step="0.01" placeholder="K"></td>
+      <td><button class="btn btn-danger btn-icon" onclick="removeStackRow(this)">×</button></td>`;
+      } else if (type === 'washer') {
+        tr.innerHTML = `
+      ${handleTd}
+      <td>${typeSelect}</td>
+      <td><input type="text" class="stack-name" value="${p.name || ''}" placeholder="墊片"></td>
+      <td><input type="number" class="stack-od" value="${p.od || ''}" min="1" step="0.5"></td>
+      <td><input type="number" class="stack-id" value="${p.id || ''}" min="1" step="0.5"></td>
+      <td><input type="number" class="stack-σy" value="${p.σy || ''}" min="0" step="1" placeholder="σy"></td>
+      <td><input disabled placeholder="—"></td>
+      <td><button class="btn btn-danger btn-icon" onclick="removeStackRow(this)">×</button></td>`;
+      } else if (type === 'part') {
+        tr.innerHTML = `
+      ${handleTd}
+      <td>${typeSelect}</td>
+      <td><input type="text" class="stack-name" value="${p.name || ''}" placeholder="例：SGCC"></td>
+      <td><input disabled placeholder="—"></td>
+      <td><input disabled placeholder="—"></td>
+      <td><input type="number" class="stack-σy" value="${p.σy || ''}" min="0" step="1" placeholder="σy"></td>
+      <td><input disabled placeholder="—"></td>
+      <td><button class="btn btn-danger btn-icon" onclick="removeStackRow(this)">×</button></td>`;
+      } else if (type === 'nut') {
+        tr.innerHTML = `
+      ${handleTd}
+      <td>${typeSelect}</td>
+      <td><input type="text" class="stack-name" value="${p.name || ''}" placeholder="例：ISO 4032 8級"></td>
+      <td><input type="number" class="stack-od" value="${p.od || ''}" min="1" step="0.5" placeholder="無墊片時填"></td>
+      <td><input type="number" class="stack-id" value="${p.id || ''}" min="1" step="0.5" placeholder="孔徑"></td>
+      <td><input type="number" class="stack-σy" value="${p.σy || ''}" min="0" step="10" placeholder="Sp"></td>
+      <td><input disabled placeholder="—"></td>
+      <td><button class="btn btn-danger btn-icon" onclick="removeStackRow(this)">×</button></td>`;
+      }
+      bindDrag(tr);
+      tbody.appendChild(tr);
+    }
+
+    function onStackTypeChange(sel) {
+      const tr = sel.closest('tr');
+      const newType = sel.value;
+      tr.dataset.type = newType;
+      const tbody = document.getElementById('stackBody');
+      const preset = {};
+      if (newType === 'bolt') preset.σy = '';
+      else if (newType === 'washer') preset.σy = '';
+      else if (newType === 'part') preset.σy = '';
+      else if (newType === 'nut') preset.σy = '';
+      const next = tr.nextSibling;
+      tbody.removeChild(tr);
+      const dummy = document.createElement('tbody');
+      dummy.id = '_tmp';
+      tbody.parentNode.insertBefore(dummy, next ? tbody : null);
+      stackIdCounter--;
+      addStackRow(newType, preset);
+      const newTr = tbody.lastElementChild;
+      if (next) tbody.insertBefore(newTr, next);
+      dummy.remove();
+    }
+
+    function removeStackRow(btn) {
+      btn.closest('tr').remove();
+    }
+
+    let dragSrc = null;
+    function bindDrag(tr) {
+      tr.addEventListener('dragstart', e => {
+        dragSrc = tr;
+        tr.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', tr.dataset.id);
+      });
+      tr.addEventListener('dragend', () => {
+        dragSrc = null;
+        tr.classList.remove('dragging');
+        document.querySelectorAll('#stackBody tr').forEach(r =>
+          r.classList.remove('drag-over-top', 'drag-over-bottom'));
+      });
+      tr.addEventListener('dragover', e => {
+        if (!dragSrc || dragSrc === tr) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const rect = tr.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        document.querySelectorAll('#stackBody tr').forEach(r =>
+          r.classList.remove('drag-over-top', 'drag-over-bottom'));
+        tr.classList.add(e.clientY < mid ? 'drag-over-top' : 'drag-over-bottom');
+      });
+      tr.addEventListener('dragleave', () =>
+        tr.classList.remove('drag-over-top', 'drag-over-bottom'));
+      tr.addEventListener('drop', e => {
+        if (!dragSrc || dragSrc === tr) return;
+        e.preventDefault();
+        const rect = tr.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        const tbody = document.getElementById('stackBody');
+        e.clientY < mid
+          ? tbody.insertBefore(dragSrc, tr)
+          : tbody.insertBefore(dragSrc, tr.nextSibling);
+        tr.classList.remove('drag-over-top', 'drag-over-bottom');
+      });
+    }
+
+    function toggleForceBlocks() {
+      const cb = document.getElementById('includeForce');
+      const blocks = document.getElementById('forceBlocks');
+      blocks.classList.toggle('hidden', !cb.checked);
+    }
+
+    function onLoadPresetChange() { }
+
+    function resetForm() {
+      document.getElementById('stackBody').innerHTML = '';
+      document.getElementById('includeForce').checked = false;
+      toggleForceBlocks();
+      document.getElementById('analysisTarget').value = '';
+      document.getElementById('weight').value = '';
+      document.getElementById('boltCount').value = '';
+      document.getElementById('height').value = '';
+      document.getElementById('boltSpan').value = '';
+      document.getElementById('ahValue').value = '';
+      document.getElementById('avValue').value = '';
+      document.getElementById('friction').value = '';
+      document.getElementById('torque').value = '';
+      document.getElementById('resultArea').classList.add('hidden');
+    }
+
+    function getInputs() {
+      const rows = Array.from(document.querySelectorAll('#stackBody tr'));
+      const stack = rows.map(tr => {
+        const type = tr.dataset.type;
+        const base = { type };
+        if (type === 'bolt') {
+          const sizeEl = tr.querySelector('.stack-bolt-size');
+          const size = sizeEl ? sizeEl.value : '';
+          return {
+            ...base, size, ...(BOLT_DATA[size] || {}),
+            od: parseFloat(tr.querySelector('.stack-od')?.value) || 0,
+            id: parseFloat(tr.querySelector('.stack-id')?.value) || 0,
+            σy: parseFloat(tr.querySelector('.stack-σy')?.value) || 0,
+            K: parseFloat(tr.querySelector('.stack-k')?.value) || 0.2
+          };
+        } else if (type === 'washer') {
+          return {
+            ...base,
+            name: tr.querySelector('.stack-name')?.value || '墊片',
+            od: parseFloat(tr.querySelector('.stack-od')?.value) || 0,
+            id: parseFloat(tr.querySelector('.stack-id')?.value) || 0,
+            σy: parseFloat(tr.querySelector('.stack-σy')?.value) || 0
+          };
+        } else if (type === 'part') {
+          return {
+            ...base,
+            name: tr.querySelector('.stack-name')?.value || '工件',
+            σy: parseFloat(tr.querySelector('.stack-σy')?.value) || 0
+          };
+        } else if (type === 'nut') {
+          return {
+            ...base,
+            name: tr.querySelector('.stack-name')?.value || '螺帽',
+            od: parseFloat(tr.querySelector('.stack-od')?.value) || 0,
+            id: parseFloat(tr.querySelector('.stack-id')?.value) || 0,
+            Sp: parseFloat(tr.querySelector('.stack-σy')?.value) || 0
+          };
+        }
+        return base;
+      });
+
+      const torque = parseFloat(document.getElementById('torque').value) || 0;
+
+      const includeForce = document.getElementById('includeForce').checked;
+      const load = includeForce ? {
+        weightKg: parseFloat(document.getElementById('weight').value) || 0,
+        N: parseInt(document.getElementById('boltCount').value) || 1,
+        H: parseFloat(document.getElementById('height').value) || 0,
+        B: parseFloat(document.getElementById('boltSpan').value) || 0,
+        ah: parseFloat(document.getElementById('ahValue').value) || 0,
+        av: parseFloat(document.getElementById('avValue').value) || 0,
+        mu: parseFloat(document.getElementById('friction').value) || 0.3
+      } : null;
+
+      return { stack, load, includeForce, torque };
+    }
+
+    function runAnalysis() {
+      const inp = getInputs();
+      const recommends = [];
+
+      // 從堆疊找螺絲（第一個）與螺帽（最後一個）
+      const bolt = inp.stack.find(s => s.type === 'bolt');
+      const nut = [...inp.stack].reverse().find(s => s.type === 'nut');
+
+      // 扭力換算軸力（需要螺絲與扭力）
+      const torque = inp.torque;
+      const F_kN = (bolt && bolt.K && bolt.d && torque)
+        ? torque / (bolt.K * bolt.d / 1000) / 1000
+        : null;
+
+      // ── 接觸面判斷（位置感知）─────────────────────────
+      const boltIdx = inp.stack.findIndex(s => s.type === 'bolt');
+      const nutIdx = inp.stack.findIndex(s => s.type === 'nut');
+      const hasNut = nutIdx !== -1;
+
+      // 螺絲頭側：螺絲正下方的項目
+      const itemAfterBolt = boltIdx !== -1 ? inp.stack[boltIdx + 1] : null;
+      // 螺帽側：螺帽正上方的項目
+      const itemBeforeNut = hasNut ? inp.stack[nutIdx - 1] : null;
+
+      // 頂端接觸來源
+      let topContact = null;
+      let topNeedsOD = false;
+      if (itemAfterBolt && itemAfterBolt.type === 'washer') {
+        topContact = { ...itemAfterBolt, label: `螺絲頭側墊片（${itemAfterBolt.name}）`, src: 'washer' };
+      } else if (itemAfterBolt && bolt) {
+        if (bolt.od > 0 && bolt.id > 0) {
+          topContact = { od: bolt.od, id: bolt.id, σy: 0, label: '螺絲頭直接壓工件', src: '_head' };
+        } else {
+          topNeedsOD = true;
+        }
+      }
+
+      // 底端接觸來源（無螺帽 = 功牙，略過）
+      let bottomContact = null;
+      let bottomNeedsOD = false;
+      let isTappedHole = false;
+      if (!hasNut) {
+        isTappedHole = true;
+      } else if (itemBeforeNut && itemBeforeNut.type === 'washer') {
+        // 只有在底側墊片與頂側墊片不同時才計算（避免單墊片重複）
+        const sameAsTop = topContact && topContact.src === 'washer' &&
+          topContact.od === itemBeforeNut.od && topContact.id === itemBeforeNut.id &&
+          topContact.name === itemBeforeNut.name;
+        if (!sameAsTop) {
+          bottomContact = { ...itemBeforeNut, label: `螺帽側墊片（${itemBeforeNut.name}）`, src: 'washer' };
+        } else {
+          // 同一片墊片：底端改用螺帽 OD/ID（若有填）
+          if (nut && nut.od > 0 && nut.id > 0) {
+            bottomContact = { od: nut.od, id: nut.id, σy: 0, label: '螺帽直接壓工件', src: '_nut' };
+          }
+        }
+      } else if (itemBeforeNut && nut) {
+        if (nut.od > 0 && nut.id > 0) {
+          bottomContact = { od: nut.od, id: nut.id, σy: 0, label: '螺帽直接壓工件', src: '_nut' };
+        } else {
+          bottomNeedsOD = true;
+        }
+      }
+
+      // 計算接觸面積與面壓
+      const A_top = topContact ? (Math.PI / 4) * (topContact.od * topContact.od - topContact.id * topContact.id) : 0;
+      const A_bottom = bottomContact ? (Math.PI / 4) * (bottomContact.od * bottomContact.od - bottomContact.id * bottomContact.id) : 0;
+      const sigmaTop = (F_kN !== null && A_top > 0) ? (F_kN * 1000) / A_top : null;
+      const sigmaBottom = (F_kN !== null && A_bottom > 0) ? (F_kN * 1000) / A_bottom : null;
+
+      // ── 緊固件強度 ────────────────────────────────────
+      const systemRows = [];
+
+      if (bolt && F_kN !== null) {
+        const sigmaBolt = (F_kN * 1000) / bolt.As;
+        let r = { name: `螺絲（${bolt.size}）自身強度`, value: `${sigmaBolt.toFixed(1)} N/mm² (${(sigmaBolt / bolt.σy * 100).toFixed(0)}% 降伏)`, ref: `σy ${bolt.σy}　建議 ≤ ${(bolt.σy * 0.7).toFixed(0)}`, verdict: 'pass' };
+        if (sigmaBolt > bolt.σy * 0.9) { r.verdict = 'fail'; recommends.push('螺絲拉應力超過 90% 降伏，建議提升等級或加大直徑'); }
+        else if (sigmaBolt > bolt.σy * 0.7) { r.verdict = 'warn'; recommends.push('螺絲拉應力超過建議值（70% 降伏），動態載荷下風險增加'); }
+        systemRows.push(r);
+      }
+
+      if (nut && bolt && F_kN !== null) {
+        const proofLoad_kN = nut.Sp * bolt.As / 1000;
+        const nutRatio = (F_kN / proofLoad_kN) * 100;
+        let r = { name: `螺帽（${nut.name}）保證載荷`, value: `${F_kN.toFixed(1)} kN (利用率 ${nutRatio.toFixed(0)}%)`, ref: `Sp ${nut.Sp}　保證載荷 ${proofLoad_kN.toFixed(1)} kN`, verdict: 'pass' };
+        if (F_kN > proofLoad_kN) { r.verdict = 'fail'; recommends.push('軸力超過螺帽保證載荷，需提升螺帽 Sp'); }
+        else if (F_kN > proofLoad_kN * 0.7) { r.verdict = 'warn'; }
+        systemRows.push(r);
+      }
+
+      // ── 接觸面降伏 ────────────────────────────────────
+      const contactRows = [];
+
+      // 缺填 OD/ID 警示
+      if (topNeedsOD) {
+        contactRows.push({ name: '螺絲頭側接觸面積', value: '⚠️ 請填寫螺絲頭外徑與孔徑', ref: '無墊片時需填螺絲頭 OD/ID', verdict: 'warn' });
+        recommends.push('堆疊無螺絲頭側墊片，請在螺絲列填寫螺絲頭外徑與孔徑以計算面壓');
+      }
+      if (bottomNeedsOD) {
+        contactRows.push({ name: '螺帽側接觸面積', value: '⚠️ 請填寫螺帽外徑與孔徑', ref: '無墊片時需填螺帽 OD/ID', verdict: 'warn' });
+        recommends.push('堆疊無螺帽側墊片，請在螺帽列填寫螺帽外徑與孔徑以計算面壓');
+      }
+
+      // 螺絲頭側接觸面
+      if (sigmaTop !== null) {
+        let topRow = {
+          name: topContact.src === '_head' ? '螺絲頭直接壓工件' : `螺絲頭側墊片（${topContact.name}）`,
+          value: `接觸應力 ${sigmaTop.toFixed(1)} N/mm²`,
+          ref: `面積 ${A_top.toFixed(0)} mm² (OD${topContact.od}/ID${topContact.id})`,
+          verdict: 'pass'
+        };
+        if (topContact.src === 'washer' && topContact.σy > 0) {
+          const ratio = sigmaTop / topContact.σy;
+          topRow.value += ` (${(ratio * 100).toFixed(0)}% σy)`;
+          topRow.ref = `σy ${topContact.σy}　${topRow.ref}`;
+          if (ratio > 1.0) { topRow.verdict = 'fail'; recommends.push('螺絲頭側墊片超過降伏，會被壓陷，建議加大外徑或提升強度'); }
+          else if (ratio > 0.6) { topRow.verdict = 'warn'; recommends.push('螺絲頭側墊片接觸應力偏高，建議加大外徑'); }
+        }
+        contactRows.push(topRow);
+      }
+
+      // 螺帽側接觸面
+      if (isTappedHole) {
+        contactRows.push({ name: '螺帽側接觸面積', value: '功牙孔（螺紋咬合），不計接觸面壓', ref: '底端為工件攻牙，改以螺紋剪切強度評估', verdict: 'pass' });
+      } else if (sigmaBottom !== null) {
+        let botRow = {
+          name: bottomContact.src === '_nut' ? '螺帽直接壓工件' : `螺帽側墊片（${bottomContact.name}）`,
+          value: `接觸應力 ${sigmaBottom.toFixed(1)} N/mm²`,
+          ref: `面積 ${A_bottom.toFixed(0)} mm² (OD${bottomContact.od}/ID${bottomContact.id})`,
+          verdict: 'pass'
+        };
+        if (bottomContact.src === 'washer' && bottomContact.σy > 0) {
+          const ratio = sigmaBottom / bottomContact.σy;
+          botRow.value += ` (${(ratio * 100).toFixed(0)}% σy)`;
+          botRow.ref = `σy ${bottomContact.σy}　${botRow.ref}`;
+          if (ratio > 1.0) { botRow.verdict = 'fail'; recommends.push('螺帽側墊片超過降伏，會被壓陷，建議加大外徑或提升強度'); }
+          else if (ratio > 0.6) { botRow.verdict = 'warn'; recommends.push('螺帽側墊片接觸應力偏高，建議加大外徑'); }
+        }
+        contactRows.push(botRow);
+      }
+
+      // 工件：保守取頂端與底端最大值比對
+      const maxSigma = Math.max(sigmaTop || 0, sigmaBottom || 0);
+      const parts = inp.stack.filter(s => s.type === 'part');
+      parts.forEach((p, idx) => {
+        if (maxSigma === 0) return;
+        const ratio = maxSigma / p.σy;
+        let v = ratio > 1.0 ? 'fail' : ratio > 0.6 ? 'warn' : 'pass';
+        contactRows.push({ name: `工件 ${idx + 1}（${p.name}）`, value: `${maxSigma.toFixed(1)} N/mm² (${(ratio * 100).toFixed(0)}% 降伏)`, ref: `σy ${p.σy}`, verdict: v });
+        if (v === 'fail') recommends.push(`工件 ${p.name} 超過降伏，必須加大接觸面積或提升工件強度`);
+        else if (v === 'warn') recommends.push(`工件 ${p.name} 接觸應力偏高，建議加大接觸面積`);
+      });
+
+      // ── 外力對抗（僅 includeForce 時計算）─────────────
+      const forceRows = [];
+      const paramRows = [
+        bolt && F_kN !== null ? { name: '螺絲預緊力（每顆）', value: `${F_kN.toFixed(2)} kN`, ref: `T = ${torque} N·m ÷ (K ${bolt.K} × d ${bolt.d} mm)` } : null,
+        bolt ? { name: '螺紋有效應力面積 As', value: `${bolt.As} mm²`, ref: bolt.size } : null,
+        sigmaTop !== null ? { name: '螺絲頭側接觸面積', value: `${A_top.toFixed(0)} mm²`, ref: `π/4 × (${topContact.od}² − ${topContact.id}²)` } : null,
+        sigmaBottom !== null ? { name: '螺帽側接觸面積', value: `${A_bottom.toFixed(0)} mm²`, ref: `π/4 × (${bottomContact.od}² − ${bottomContact.id}²)` } : null,
+      ].filter(Boolean);
+
+      if (inp.includeForce && inp.load && bolt && F_kN !== null) {
+        const { weightKg, N, H, B, ah, av, mu } = inp.load;
+        const W_kN = weightKg * 9.81 / 1000;
+        const F_h = W_kN * ah;
+        const F_v = W_kN * av;
+
+        paramRows.push(
+          { name: '設備重力 W', value: `${W_kN.toFixed(2)} kN`, ref: `${weightKg} kg × 9.81 ÷ 1000` },
+          { name: '剪切外力（水平）', value: `${F_h.toFixed(2)} kN`, ref: `${W_kN.toFixed(2)} kN × ${ah}g` },
+          { name: '垂直外力（每顆分擔）', value: `${(F_v / N).toFixed(2)} kN`, ref: `${W_kN.toFixed(2)} kN × ${av}g ÷ ${N} 顆` }
+        );
+
+        const totalPreload = F_kN * N;
+        const friction_kN = (W_kN + totalPreload) * mu;
+        const SF_slip = F_h > 0 ? friction_kN / F_h : 999;
+        let slipCheck = { name: '抗滑動', value: `( ${W_kN.toFixed(2)} + ${N} × ${F_kN.toFixed(2)} ) × ${mu} = ${friction_kN.toFixed(2)} kN ／ 剪切 ${F_h.toFixed(2)} kN`, ref: `SF ≥ 1.5（實際 ${SF_slip.toFixed(2)}）`, verdict: 'pass' };
+        if (SF_slip < 1.0) { slipCheck.verdict = 'fail'; recommends.push('抗滑安全係數不足，需提升扭力、增加鎖點或加裝防滑塊'); }
+        else if (SF_slip < 1.5) { slipCheck.verdict = 'warn'; recommends.push('抗滑安全係數偏低，建議加大預緊力或增加鎖點'); }
+        forceRows.push(slipCheck);
+
+        const M_o = F_h * H;
+
+        // 傾覆力矩加入基礎參數供後續追溯
+        paramRows.push({ name: '傾覆力矩 M', value: `${M_o.toFixed(2)} kN·m`, ref: `剪切 ${F_h.toFixed(2)} kN × 重心至鎖點高度 ${H.toFixed(2)} m` });
+
+        const M_rW = W_kN * B;
+        const M_rB = (N / 2) * F_kN * (B * 2);
+        const SF_o = M_o > 0 ? (M_rW + M_rB) / M_o : 999;
+        const tensionBolts = Math.max(1, Math.floor(N / 2));
+        let overturnCheck = { name: '抗傾覆', value: `抗傾覆 ${W_kN.toFixed(2)} × ${B.toFixed(2)} + ${tensionBolts} × ${F_kN.toFixed(2)} × ${(B * 2).toFixed(2)} = ${(M_rW + M_rB).toFixed(2)} kN·m ／ 傾覆 M(${M_o.toFixed(2)} kN·m)`, ref: `SF ≥ 2.0（實際 ${SF_o.toFixed(2)}）`, verdict: 'pass' };
+        if (SF_o < 1.5) { overturnCheck.verdict = 'fail'; recommends.push('抗傾覆不足，建議增加螺栓間距或增加鎖點'); }
+        else if (SF_o < 2.0) { overturnCheck.verdict = 'warn'; recommends.push('抗傾覆安全係數低於建議 2.0'); }
+        forceRows.push(overturnCheck);
+
+        const F_overturn_each = B > 0 ? M_o / ((B * 2) * tensionBolts) : 0;
+        const F_vertical_each = F_v / N;
+        const F_total = F_kN + F_overturn_each + F_vertical_each;
+        const sigmaTotal = (F_total * 1000) / bolt.As;
+        const totalRatio = sigmaTotal / bolt.σy * 100;
+        let dynCheck = {
+          name: '螺絲總拉力（預緊＋垂直外力＋傾覆軸力）',
+          value: `${F_kN.toFixed(2)} + ${F_vertical_each.toFixed(2)} + ${F_overturn_each.toFixed(2)} = ${F_total.toFixed(2)} kN → ${sigmaTotal.toFixed(0)} N/mm² (${totalRatio.toFixed(0)}%)`,
+          ref: `≤ ${(bolt.σy * 0.7).toFixed(0)} N/mm²（70% 降伏）`,
+          verdict: 'pass'
+        };
+        if (sigmaTotal > bolt.σy * 0.9) { dynCheck.verdict = 'fail'; recommends.push('螺絲總拉力超過 90% 降伏，需提升等級或增加鎖點'); }
+        else if (sigmaTotal > bolt.σy * 0.7) { dynCheck.verdict = 'warn'; recommends.push('螺絲總拉力超過 70% 門檻，建議檢討'); }
+        forceRows.push(dynCheck);
+
+        paramRows.push({ name: '傾覆引起軸力（拉力側每顆）', value: `${F_overturn_each.toFixed(2)} kN`, ref: `${M_o.toFixed(2)} kN·m ÷ (${(B * 2).toFixed(2)} m × ${tensionBolts} 顆)` });
+      }
+
+      renderResults({ params: paramRows, system: systemRows, contact: contactRows, force: forceRows }, recommends, inp.includeForce);
+    }
+
+    function verdictBadge(v) {
+      if (v === 'pass') return '<span class="badge badge-pass">合格</span>';
+      if (v === 'warn') return '<span class="badge badge-warn">注意</span>';
+      if (v === 'fail') return '<span class="badge badge-fail">不合格</span>';
+      return '';
+    }
+
+    function renderRow(row) {
+      return `<tr>
+    <td>${row.name}</td>
+    <td class="num-display">${row.value}</td>
+    <td class="num-display" style="color:#5f5e5a;font-size:12px;">${row.ref}</td>
+    <td>${verdictBadge(row.verdict)}</td>
+  </tr>`;
+    }
+
+    function renderParamRow(row) {
+      return `<tr>
+    <td>${row.name}</td>
+    <td class="num-display">${row.value}</td>
+    <td class="num-display" style="color:#5f5e5a;font-size:12px;">${row.ref}</td>
+  </tr>`;
+    }
+
+    function renderTable(id, rows) {
+      const tbl = document.getElementById(id);
+      tbl.innerHTML = `
+    <thead><tr><th>項目</th><th>計算值</th><th>判定依據</th><th>結果</th></tr></thead>
+    <tbody>${rows.map(renderRow).join('')}</tbody>
+  `;
+    }
+
+    function renderParamTable(id, rows) {
+      const tbl = document.getElementById(id);
+      tbl.innerHTML = `
+    <thead><tr><th>項目</th><th>計算值</th><th>來源依據</th></tr></thead>
+    <tbody>${rows.map(renderParamRow).join('')}</tbody>
+  `;
+    }
+
+    function renderResults(data, recommends, includeForce) {
+      document.getElementById('resultArea').classList.remove('hidden');
+      renderParamTable('paramTable', data.params);
+      renderTable('systemTable', data.system);
+      renderTable('contactTable', data.contact);
+      const forceGroup = document.getElementById('forceGroup');
+      const forceTableDiv = document.getElementById('forceTableDiv');
+      if (includeForce && data.force.length > 0) {
+        forceGroup.classList.remove('hidden');
+        forceTableDiv.classList.remove('hidden');
+        renderTable('forceTable', data.force);
+      } else {
+        forceGroup.classList.add('hidden');
+        forceTableDiv.classList.add('hidden');
+      }
+
+      const allChecks = [...data.system, ...data.contact, ...data.force];
+      const hasFail = allChecks.some(c => c.verdict === 'fail');
+      const hasWarn = allChecks.some(c => c.verdict === 'warn');
+
+      let verdictHtml;
+      if (hasFail) {
+        verdictHtml = `<div class="verdict verdict-fail"><div class="verdict-icon">×</div><div class="verdict-text">設計不合格<small>有檢核項目未通過，請依下方建議修正後重新評估</small></div></div>`;
+      } else if (hasWarn) {
+        verdictHtml = `<div class="verdict verdict-warn"><div class="verdict-icon">!</div><div class="verdict-text">可用但建議檢討<small>主要強度合格，部分項目接近極限，建議優化</small></div></div>`;
+      } else {
+        verdictHtml = `<div class="verdict verdict-pass"><div class="verdict-icon">✓</div><div class="verdict-text">設計合格<small>所有檢核項目皆滿足建議標準</small></div></div>`;
+      }
+      document.getElementById('overallVerdict').innerHTML = verdictHtml;
+
+      const recList = document.getElementById('recommendList');
+      if (recommends.length === 0) {
+        document.getElementById('recommendCard').classList.add('hidden');
+      } else {
+        document.getElementById('recommendCard').classList.remove('hidden');
+        const uniq = [...new Set(recommends)];
+        recList.innerHTML = uniq.map(r => `<li>${r}</li>`).join('');
+      }
+    }
+
+    resetForm();
+  </script>
+</body>
+
+</html>
